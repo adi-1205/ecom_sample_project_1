@@ -1,0 +1,233 @@
+<div class="container-fluid bg-white mt-0 border">
+
+    <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-2 ">
+        <span>Products({{productsCount}})</span>
+        <button type="button" class="btn btn-outline-success" id="open-add-product">
+            Add Product
+        </button>
+    </header>
+
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-danger mb-2" id="error">
+                    </div>
+                    <div class="text-success mb-2" id="success">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" name="id" id="id">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Title.." id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Short description</label>
+                        <input type="text" class="form-control" name="shortDesc" placeholder="Short.." id="shortDesc">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="desc" class="form-control" id="desc"></textarea>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col">
+                            <label class="form-label">Price</label>
+                            <input type="text" class="form-control" name="price" placeholder="Price" id="price">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Stock size</label>
+                            <input type="text" class="form-control" name="stock" placeholder="Stock" id="stock">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Discount(%)</label>
+                            <input type="text" class="form-control" name="discount" placeholder="Discount"
+                                id="discount">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category" id="category">
+                                <option selected>Choose...</option>
+                                {{#each category}}
+                                <option value="{{this._id}}">{{this.category}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" id="reset"></button>
+                    <button type="button" class="btn btn-success" id="submit"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+
+    {{#if noProducts}}
+    <div class="display-4 mt-5 mb-5">
+        Seems like you could add some products!
+    </div>
+    {{else}}
+    <div class="row">
+        {{#each products}}
+        <div class="col-md-6 h-100">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <img src="http://localhost:8000/{{this.thumbnail}}" class="img-fluid rounded-start"
+                            style="max-height: 300px; object-fit:cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.title}}</h5>
+                            <div class="price-quantity d-flex align-items-center justify-content-between">
+                                <h3 class="text-start">
+                                    <span>${{this.price}}</span>
+                                    <span
+                                        class="text-decoration-line-through text-secondary fw-normal">${{originalPrice}}</span>
+                                    <span class="fs-6 text-danger">-({{this.discount}}%) </span>
+                                </h3>
+                            </div>
+                            <p>{{this.shortDesc}}</p>
+                            <h4>Description</h4>
+                            <p>{{this.desc}}</p>
+                            <p class="card-text"><small class="text-muted">{{this.updatedAt}}</small></p>
+                            <div class="container-fluid d-flex justify-content-between p-0 mt-3">
+                                <button
+                                    class="btn btn-outline-dark w-100 me-3 bg-light btn-product-add-cart delete-product"
+                                    data-pid="{{this._id}}">Delete</button>
+                                <button class="btn btn-dark w-100 ms-3 open-update-product" data-pid="{{this._id}}"
+                                    data-info="{{this.json}}">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <ul class="pagination m-0">
+            <li class="page-item {{#unless prevPage.exists}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{#if prevPage.exists}}{{prevPage.page}}{{/if}}">Previous</a>
+            </li>
+            {{#each pagination}}
+            <li class="page-item {{#if this.activePage}}active{{/if}}">
+                <a class="page-link " href="?page={{this.page}}">{{this.page}}</a>
+            </li>
+            {{/each}}
+            <li class="page-item {{#unless nextPage.exists}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{#if nextPage.exists}}{{nextPage.page}}{{/if}}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+    {{/if}}
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#updateProductModel"
+    id="openUpdateModel" style="display: none;">
+    Update
+</button>
+<div class="modal fade" id="updateProductModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="update-product-form" data-nofill="{{nofill}}" action="/update-product">
+                <div class="modal-body">
+                    {{#if error}}
+                    <div class="text-danger mb-2">
+                        *{{error}}
+                    </div>
+                    {{/if}}
+                    {{#if success}}
+                    <div class="text-success mb-2">
+                        {{success}}
+                    </div>
+                    {{/if}}
+                    <div class="mb-3">
+                        <input type="hidden" name="id" id="id"
+                            value="{{#if updateData.title}}{{updateData.title}}{{/if}}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Title.." id="title"
+                            value="{{#if updateData.title}}{{updateData.title}}{{/if}}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Short description</label>
+                        <input type="text" class="form-control" name="shortDesc" placeholder="Short.." id="shortDesc"
+                            value="{{#if updateData.shortDesc}}{{updateData.shortDesc}}{{/if}}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="desc" class="form-control"
+                            id="desc">{{#if updateData.desc}}{{updateData.desc}}{{/if}}</textarea>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col">
+                            <label class="form-label">Price</label>
+                            <input type="text" class="form-control" name="price" placeholder="Price" id="price"
+                                value="{{#if updateData.price}}{{updateData.price}}{{/if}}">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Stock size</label>
+                            <input type="text" class="form-control" name="stock" placeholder="Stock" id="stock"
+                                value="{{#if updateData.stock}}{{updateData.stock}}{{/if}}">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Discount(%)</label>
+                            <input type="text" class="form-control" name="discount" placeholder="Discount" id="discount"
+                                value="{{#if updateData.discount}}{{updateData.discount}}{{/if}}">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category">
+                                <option selected>Choose...</option>
+                                {{#each category}}
+                                <option value="{{this.id}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" id="add-product-reset-btn">Reset</button>
+                    <button type="submit" class="btn btn-success" id="add-product-btn">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> --}}

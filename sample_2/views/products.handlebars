@@ -1,0 +1,73 @@
+<div class="alert alert-danger mb-0" role="alert" id="error">
+</div>
+<div class="alert alert-success mb-0" role="alert" id="success">
+</div>
+<div class="py-2 px-3 fs-6 mb-0 alert alert-warning alert-dismissible fade show" role="alert">
+    <span>Get upto 20% off and free delivery, order whithin an hour!</span>
+    <button type="button" class="btn-close py-3" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="container-fluid bg-white mt-0 border">
+    <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-2 ">
+        <span>Showing {{showingProducts}} out of {{totalProductCount}} products</span>
+        <div class="d-flex align-items-center">
+            <input type="text" class="form-control w-100 " placeholder="Search product.." id="search-product-name"
+                style="border-top-right-radius: 0px !important;border-bottom-right-radius: 0 !important;">
+            <button class="btn btn-outline-secondary" id="search-product"
+                style="border-top-left-radius: 0px !important;border-bottom-left-radius: 0 !important;">Search</button>
+        </div>
+
+    </header>
+</div>
+<div class="container-fluid rounded-3 mb-4 px-5 mt-2">
+    <div class="row row-cols-1 row-cols-md-5 g-2 p-3 rounded-3 border-top bg-transparent-light">
+
+        {{#if error}}
+        <div class="display-5">
+            {{error}}
+        </div>
+        {{else}}
+        {{#if noProducts}}
+        <div class="display-4">
+            No products :(
+        </div>
+        {{else}}
+        {{#each products}}
+        <div class="col">
+            <div class="card h-100">
+                <a href="/product/{{id}}"><img src="http://localhost:8000/{{this.thumbnail}}" class="card-img-top"></a>
+                <div class="card-body pb-1">
+                    <h5 class="card-title mb-0 d-flex justify-content-between mb-1"><a href="/product/{{this.id}}"
+                            class="text-decoration-none text-dark"><span>{{this.title}}</span></a><span
+                            class="fs-6">${{this.price}}</span></h5>
+                    <p class="card-text">{{this.desc}}</p>
+                </div>
+                <div class="card-footer bg-white border-0 pt-0 w-100 mt-1">
+                    <a href="/product/{{id}}" class="btn btn-warning border w-100">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{/if}}
+    </div>
+
+</div>
+{{#unless error}}
+{{#unless noProducts}}
+<div class="d-flex justify-content-center align-items-center">
+    <ul class="pagination m-0">
+        <li class="page-item {{#unless prevPage.exists}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{#if prevPage.exists}}{{prevPage.page}}{{/if}}">Previous</a>
+        </li>
+        {{#each pagination}}
+        <li class="page-item {{#if this.activePage}}active{{/if}}">
+            <a class="page-link " href="?page={{this.page}}">{{this.page}}</a>
+        </li>
+        {{/each}}
+        <li class="page-item {{#unless nextPage.exists}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{#if nextPage.exists}}{{nextPage.page}}{{/if}}">Next</a>
+        </li>
+    </ul>
+</div>
+{{/unless}}
+{{/unless}}

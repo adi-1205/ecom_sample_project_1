@@ -1,0 +1,143 @@
+body {
+    background: radial-gradient(rgba(0, 0, 0, 0.2),
+            transparent 8%);
+    background-position: 0px 0px;
+    background-size: 5vmin 5vmin;
+    background-repeat: repeat;
+    animation: body-background 5s infinite linear;
+    font-family: 'Poppins' !important;
+}
+
+.regsiter-wrapper {
+    min-height: 100%;
+}
+
+/* hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(144, 144, 144);
+} */
+
+.card-footer>a.btn {
+    background-color: #24282c !important;
+    /* color: #24282c; */
+    color: #dae3ed;
+}
+
+.card-footer>a.btn:hover {
+    background-color: #444b52 !important;
+    color: #dae3ed;
+}
+
+.card-body>p {
+    display: block;
+    text-overflow: ellipsis;
+    /* word-wrap: break-word; */
+    overflow: hidden;
+    max-height: 2.4em;
+    line-height: 1.2em;
+}
+
+.card-img-top {
+    object-fit: contain !important;
+    width: 100% !important;
+    aspect-ratio: 16/9 !important;
+    transition: all 100ms ease-in-out;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1);
+}
+
+#forget-password:hover {
+    color: #4a4f53 !important;
+}
+
+.btn-product-add-cart:hover {
+    color: #24282c !important;
+    background: #ebebeb !important;
+}
+
+.nav-link:hover {
+    color: #f8f9fa !important;
+}
+
+.nav-link.active {
+    color: #f8f9fa !important;
+}
+
+.bg-transparent-light {
+    background-color: rgb(241, 241, 241);
+}
+
+.product-images {
+    overflow-x: auto;
+}
+
+.product-images>img {
+    width: 40%;
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    background-color: white;
+    border-right: #dbdbdb 1px solid;
+}
+
+.product-thumbnail {
+    max-height: 80vh;
+}
+
+#error {
+    display: none;
+}
+
+#success {
+    display: none;
+}
+
+.page-item:not(.disabled) .page-link{
+    color: #24282c !important;
+}
+
+.page-item.active .page-link {
+    background-color: #24282c !important;
+    color: #dbdbdb !important;
+    border: none;
+}
+
+@keyframes body-background {
+    0% {
+        background-position: 0vmin 0vmin;
+    }
+
+    100% {
+        background-position: 5vmin 5vmin;
+    }
+
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #3f3f3f #ededed;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 11px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ededed;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #606060;
+    border-radius: 0px;
+    border: 0px none #ffffff;
+}

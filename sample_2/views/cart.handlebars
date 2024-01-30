@@ -1,0 +1,56 @@
+<div class="alert alert-danger mb-0" role="alert" id="error">
+</div>
+<div class="alert alert-success mb-0" role="alert" id="success">
+</div>
+<div class="display-6 py-3 px-3 bg-white border-bottom">Shopping Cart</div>
+<div class="container">
+
+    {{#if noItems}}
+    <div class="container-fluid border bg-white p-4">
+        <h5>Your cart is empty :(</h5>
+        <a href="/products" class="btn btn-dark">Browse products now</a>
+    </div>
+    {{else}}
+    <div class="card mb-3">
+
+        {{#each cartItems}}
+        <div class="row g-0 border-bottom cart-item" data-pid="{{this.id}}" data-qty="{{this.qty}}">
+            <div class="col-md-4 d-flex justify-content-center" >
+                <img src="http://localhost:8000/{{this.thumbnail}}" class="img-fluid rounded-start"
+                    style="max-height: 200px;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <div class="container-fluid d-flex justify-content-between p-0 mt-3">
+                            <h5>{{this.title}}</h5>
+                            <button class="btn btn-outline-dark bg-light btn-product-add-cart remove-from-cart"
+                                data-pid="{{this.id}}">Remove from cart</button>
+                        </div>
+                    </h3>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5>Price: ${{this.price}} </h5>
+                        &times;
+                        <h5>Qty: {{this.qty}} </h5>
+                        &equals;
+                        <h5>Total ${{this.itemTotal}}</h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+        <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    subtotal ({{itemCount}} items): ${{total}}
+                </div>
+                <button class="btn btn-dark ms-3" data-pid="{{this.id}}" id="buy">Buy now</button>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</div>

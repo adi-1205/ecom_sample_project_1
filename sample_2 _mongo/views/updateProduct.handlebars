@@ -1,0 +1,62 @@
+<div class="container mt-4">
+    <h2>Update Product</h2>
+    <form method="post" class="px-5 py-3 bg-white rounded-3 border">
+        {{#if error}}
+        <div class="text-danger mb-2">
+            *{{error}}
+        </div>
+        {{/if}}
+        {{#if success}}
+        <div class="text-success mb-2">
+            {{success}}
+        </div>
+        {{/if}}
+        <input type="hidden" class="form-control" name="id" placeholder="Title.."
+            value="{{#if filledData.id}}{{filledData.id}}{{/if}}">
+        <div class="mb-3">
+            <label class="form-label">Product title</label>
+            <input type="text" class="form-control" name="title" placeholder="Title.."
+                value="{{#if filledData.title}}{{filledData.title}}{{/if}}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Short description</label>
+            <input type="text" class="form-control" name="shortDesc" placeholder="Short.."
+                value="{{#if filledData.shortDesc}}{{filledData.shortDesc}}{{/if}}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="desc" class="form-control">{{#if filledData.desc}}{{filledData.desc}}{{/if}}</textarea>
+        </div>
+        <div class="row g-3 mb-3">
+            <div class="col">
+                <label class="form-label">Price</label>
+                <input type="text" class="form-control" name="price" placeholder="Price"
+                    value="{{#if filledData.price}}{{filledData.price}}{{/if}}">
+            </div>
+            <div class="col">
+                <label class="form-label">Stock size</label>
+                <input type="text" class="form-control" name="stock" placeholder="Stock"
+                    value="{{#if filledData.stock}}{{filledData.stock}}{{/if}}">
+            </div>
+            <div class="col">
+                <label class="form-label">Discount(%)</label>
+                <input type="text" class="form-control" name="discount" placeholder="Discount"
+                    value="{{#if filledData.discount}}{{filledData.discount}}{{/if}}">
+            </div>
+            <div class="col">
+                <label class="form-label">Category</label>
+                <select class="form-select" name="category">
+                    <option selected>Choose...</option>
+                    {{#each category}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="container-fluid d-flex justify-content-between p-0 mt-3">
+            <input class="btn btn-outline-dark w-100 me-3 bg-light btn-product-add-cart" type="reset" value="Reset">
+            <button type="submit" class="btn btn-dark w-100 ms-3">Update</button>
+        </div>
+    </form>
+</div>

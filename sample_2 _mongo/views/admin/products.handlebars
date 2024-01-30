@@ -1,0 +1,135 @@
+<div class="container-fluid bg-white mt-0 border">
+
+    <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-2 ">
+        <span>Products({{productsCount}})</span>
+        <div class="form-group d-flex align-items-center">
+            <label for="" class="form-label mx-1 my-0">By</label>
+            <select class="form-select mx-1" name="filter" id="filter">
+                <option value="product" selected="true">Product</option>
+                <option value="user">User</option>
+            </select>
+            <input type="text" name="val" id="val" class="form-control mx-1" placeholder="Search..">
+            <button name="search" id="search-product" class="btn btn-secondary">Filter</button>
+        </div>
+        <button type="button" class="btn btn-outline-success" id="open-add-product">
+            Add Product
+        </button>
+    </header>
+
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-danger mb-2" id="error">
+                    </div>
+                    <div class="text-success mb-2" id="success">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" name="id" id="id">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Product title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Title.." id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Short description</label>
+                        <input type="text" class="form-control" name="shortDesc" placeholder="Short.." id="shortDesc">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="desc" class="form-control" id="desc"></textarea>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col">
+                            <label class="form-label">Price</label>
+                            <input type="text" class="form-control" name="price" placeholder="Price" id="price">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Stock size</label>
+                            <input type="text" class="form-control" name="stock" placeholder="Stock" id="stock">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Discount(%)</label>
+                            <input type="text" class="form-control" name="discount" placeholder="Discount"
+                                id="discount">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category" id="category">
+                                <option selected="true">Choose...</option>
+                                {{#each category}}
+                                <option value="{{this._id}}">{{this.category}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" id="reset"></button>
+                    <button type="button" class="btn btn-success" id="submit"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid rounded-3 mb-4 px-5 mt-2">
+    <div class="row row-cols-1 row-cols-md-5 g-2 p-3 rounded-3 border-top bg-transparent-light">
+
+        {{#if error}}
+        <div class="display-5">
+            {{error}}
+        </div>
+        {{else}}
+        {{#if noProducts}}
+        <div class="display-4">
+            No products :(
+        </div>
+        {{else}}
+        {{#each products}}
+        <div class="col">
+            <div class="card h-100">
+                <img src="http://localhost:8000/{{this.thumbnail}}" class="card-img-top">
+                <div class="card-body pb-1">
+                    <h5 class="card-title mb-0 d-flex justify-content-between mb-1"><a href="/product/{{this.id}}"
+                            class="text-decoration-none text-dark"><span>{{this.title}}</span></a><span
+                            class="fs-6">${{this.price}}</span></h5>
+                    <p class="card-text">{{this.shortDesc}}</p>
+                </div>
+                <div class="card-footer bg-white border-0 pt-0 w-100 mt-1 d-flex justify-content-between">
+                    <button class="btn btn-outline-dark mx-2 w-100 delete-product" data-pid="{{this._id}}">Delete</button>
+                    <button class="btn btn-dark mx-2 w-100 open-update-product" data-info="{{this.info}}" data-pid="{{this._id}}">Update</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{/if}}
+    </div>
+</div>
+
+{{#unless error}}
+{{#unless noProducts}}
+<div class="d-flex justify-content-center align-items-center">
+    <ul class="pagination m-0">
+        <li class="page-item {{#unless prevPage.exists}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{#if prevPage.exists}}{{prevPage.page}}{{/if}}">Previous</a>
+        </li>
+        {{#each pagination}}
+        <li class="page-item {{#if this.activePage}}active{{/if}}">
+            <a class="page-link " href="?page={{this.page}}">{{this.page}}</a>
+        </li>
+        {{/each}}
+        <li class="page-item {{#unless nextPage.exists}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{#if nextPage.exists}}{{nextPage.page}}{{/if}}">Next</a>
+        </li>
+    </ul>
+</div>
+{{/unless}}
+{{/unless}}

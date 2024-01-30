@@ -1,0 +1,78 @@
+<div class="container-fluid bg-dark">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 ">
+        <a href="/" class="d-flex col-md-3  text-light text-decoration-none fs-2">
+            Shopper.in
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 text-secondary {{#if homePage}}active{{/if}}">Home</a></li>
+            <li><a href="/products" class="nav-link px-2 text-secondary {{#if productPage}}active{{/if}}">Product</a>
+            </li>
+            <li><a href="/orders" class="nav-link px-2 text-secondary {{#if orderPage}}active{{/if}}">Order</a></li>
+            <li><a href="/cart" class="nav-link px-2 text-secondary {{#if cartPage}}active{{/if}}" id="cart-count">Cart({{cartCount}})</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-secondary {{#if profilePage}}active{{/if}}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">User</a></li>
+                    <li><a class="dropdown-item" href="/seller-profile">Seller</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            {{#if isAuthenticated}}
+            <a class="btn btn-outline-light me-2" href="/auth/logout">Logout</a>
+            {{else }}
+            <a class="btn btn-outline-light me-2" href="/auth/login">Login</a>
+            <a class="btn btn-light" href="/auth/register">Register</a>
+            {{/if}}
+        </div>
+    </header>
+</div>
+
+
+
+
+
+
+{{!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid d-flex justify-content-between">
+        <a class="navbar-brand" href="#">Kharcha.com</a>
+        <form class="d-flex">
+            <input class="form-control me-2 bg-light" type="search" placeholder="Search" id="nav-search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+        <div id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{#if homePage}}active{{/if}}" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if false}}active{{/if}}" href="/auth/#">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if false}}active{{/if}}" href="/auth/#">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if false}}active{{/if}}" href="/auth/#">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if false}}active{{/if}}" href="/auth/#">Profile</a>
+                </li>
+                {{#if isAuthenticated}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/logout">Logout</a>
+                </li>
+                {{else }}
+                <li class="nav-item">
+                    <a class="nav-link {{#if loginPage}}active{{/if}}" href="/auth/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if registerPage}}active{{/if}}" href="/auth/register">Register</a>
+                </li>
+                {{/if}}
+
+            </ul>
+        </div>
+    </div>
+</nav> --}}

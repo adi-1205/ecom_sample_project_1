@@ -1,0 +1,63 @@
+<div class="alert alert-danger mb-0" role="alert" id="error">
+</div>
+<div class="alert alert-success mb-0" role="alert" id="success">
+</div>
+<div class="container mt-4 bg-light border rounded-2 p-3">
+    <div class="row ">
+        <div class="col-md-6">
+            <img src="http://localhost:8000/{{product.thumbnail}}" class="img-fluid rounded-3 w-100 product-thumbnail">
+            <div class="product-images d-flex mt-1 rounded-3">
+                {{#each images}}
+                <img src="http://localhost:8000/{{this}}" style="height;">
+                {{/each}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mt-1">{{product.title}}</h2>
+            <span class="d-block mb-3">By: <span class="text-decoration-underline">{{sellerName}}</span></span>
+            <p class="m-0">
+                {{!-- ratings
+                {{#each star.fullStars}}
+                <i class="fa fa-star text-warning"></i>
+                {{/each}}
+                {{#each star.halfStar}}
+                <i class="fa fa-star-half-o text-warning"></i>
+                {{/each}}
+                {{#each star.emptyStars}}
+                <i class="fa fa-star-o text-warning"></i>
+                {{/each}} --}}
+            <div>{{product.shortDesc}}</div>
+            </p>
+            <hr>
+            <h4>Description</h4>
+            <p>{{product.desc}}</p>
+
+            <hr>
+
+            {{#if inStock}}
+            <span class="text-success fs-4">In stock</span>
+            {{else}}
+            <span class="text-danger fs-4">Out of stock</span>
+            {{/if}}
+            <div class="price-quantity d-flex align-items-center justify-content-between">
+                <h3 class="text-start">
+                    <span>${{product.price}}</span>
+                    <span class="text-decoration-line-through text-secondary fw-normal">${{originalPrice}}</span>
+                    <span class="fs-6 text-danger">-({{product.discount}}%) </span>
+                </h3>
+                <div class="d-flex my-2">
+                    <span class="fs-4 mx-3">Qty</span>
+                    <button class="btn btn-dark rounded-0" id="dec-qty">-</button>
+                    <button class="form-control rounded-0" style="width: 3em !important;" id="qty-btn"
+                        data-stock="{{product.stock}}">0</button>
+                    <button class="btn btn-dark rounded-0" id="inc-qty">+</button>
+                </div>
+            </div>
+            <div class="container-fluid d-flex justify-content-between p-0 mt-3">
+                <button class="btn btn-outline-dark w-100 me-3 bg-light btn-product-add-cart" data-pid="{{product._id}}"
+                    id="add-to-cart">Add to cart</button>
+                <button class="btn btn-dark w-100 ms-3" data-pid="{{product._id}}" id="buy-now">Buy now</button>
+            </div>
+        </div>
+    </div>
+</div>
